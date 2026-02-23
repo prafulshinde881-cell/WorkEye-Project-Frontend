@@ -12,7 +12,7 @@
 // CONFIGURATION
 // ============================================================================
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:10000';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://workeye-project-backend.onrender.com';
   // import.meta.env.VITE_API_URL || 'https://juicier-issac-ungodly.ngrok-free.dev';
 
 export const WS_BASE_URL = (() => {
