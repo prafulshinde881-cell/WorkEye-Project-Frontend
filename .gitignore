@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+
+# production build
+dist/
+build/
+
+# environment variables
+.env
+.env.*
+!.env.example
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editor folders
+.vscode/
+.idea/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# local render config
+.render/
+
+# coverage
+coverage/

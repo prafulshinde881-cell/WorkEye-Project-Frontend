@@ -1,0 +1,668 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google font */
+
+@layer properties {
+    @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
+      *, :before, :after, ::backdrop {
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-translate-z: 0;
+        --tw-space-y-reverse: 0;
+        --tw-border-style: solid;
+        --tw-gradient-position: initial;
+        --tw-gradient-from: #0000;
+        --tw-gradient-via: #0000;
+        --tw-gradient-to: #0000;
+        --tw-gradient-stops: initial;
+        --tw-gradient-via-stops: initial;
+        --tw-gradient-from-position: 0%;
+        --tw-gradient-via-position: 50%;
+        --tw-gradient-to-position: 100%;
+        --tw-shadow: 0 0 #0000;
+        --tw-shadow-color: initial;
+        --tw-shadow-alpha: 100%;
+        --tw-inset-shadow: 0 0 #0000;
+        --tw-inset-shadow-color: initial;
+        --tw-inset-shadow-alpha: 100%;
+        --tw-ring-color: initial;
+        --tw-ring-shadow: 0 0 #0000;
+        --tw-inset-ring-color: initial;
+        --tw-inset-ring-shadow: 0 0 #0000;
+        --tw-ring-inset: initial;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: #fff;
+        --tw-ring-offset-shadow: 0 0 #0000;
+        --tw-blur: initial;
+        --tw-brightness: initial;
+        --tw-contrast: initial;
+        --tw-grayscale: initial;
+        --tw-hue-rotate: initial;
+        --tw-invert: initial;
+        --tw-opacity: initial;
+        --tw-saturate: initial;
+        --tw-sepia: initial;
+        --tw-drop-shadow: initial;
+        --tw-drop-shadow-color: initial;
+        --tw-drop-shadow-alpha: 100%;
+        --tw-drop-shadow-size: initial;
+        --tw-backdrop-blur: initial;
+        --tw-backdrop-brightness: initial;
+        --tw-backdrop-contrast: initial;
+        --tw-backdrop-grayscale: initial;
+        --tw-backdrop-hue-rotate: initial;
+        --tw-backdrop-invert: initial;
+        --tw-backdrop-opacity: initial;
+        --tw-backdrop-saturate: initial;
+        --tw-backdrop-sepia: initial;
+        --tw-scale-x: 1;
+        --tw-scale-y: 1;
+        --tw-scale-z: 1;
+      }
+    }
+  }
+
+  /* ============================
+    GLOBAL TYPOGRAPHY
+    ============================ */
+
+  * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  h1 { font-size: 2rem; }  /* 32px */
+  h2 { font-size: 1.5rem; } /* 24px */
+  h3 { font-size: 1.25rem; } /* 20px */
+  h4 { font-size: 1.125rem; } /* 18px */
+
+  /* ============================
+    NEUMORPHISM DESIGN SYSTEM
+    ============================ */
+
+  :root {
+    /* Neumorphism colors */
+    --neu-bg: #e8ecf1;
+    --neu-surface: #e8ecf1;
+    --neu-shadow-light: #ffffff;
+    --neu-shadow-dark: #bec3c9;
+    --neu-text-primary: #1e293b;
+    --neu-text-secondary: #64748b;
+    --neu-accent: #6366f1;
+  }
+
+  /* Neumorphic base card */
+  .neu-card {
+    background: var(--neu-surface);
+    border-radius: 20px;
+    box-shadow: 
+      8px 8px 16px var(--neu-shadow-dark),
+      -8px -8px 16px var(--neu-shadow-light);
+    transition: all 0.3s ease;
+  }
+
+  .neu-card:hover {
+    box-shadow: 
+      12px 12px 24px var(--neu-shadow-dark),
+      -12px -12px 24px var(--neu-shadow-light);
+  }
+
+  /* Flat card (less depth) */
+  .neu-card-flat {
+    background: var(--neu-surface);
+    border-radius: 16px;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -4px -4px 8px var(--neu-shadow-light);
+  }
+
+  /* Pressed/inset effect */
+  .neu-inset {
+    background: var(--neu-surface);
+    border-radius: 16px;
+    box-shadow: 
+      inset 4px 4px 8px var(--neu-shadow-dark),
+      inset -4px -4px 8px var(--neu-shadow-light);
+  }
+
+  /* Icon container */
+  .neu-icon-box {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+  }
+
+  .neu-icon-box-sm {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -4px -4px 8px var(--neu-shadow-light);
+  }
+
+  /* Button */
+  .neu-btn {
+    background: var(--neu-surface);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: var(--neu-text-primary);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+  }
+
+  .neu-btn:hover {
+    box-shadow: 
+      8px 8px 16px var(--neu-shadow-dark),
+      -8px -8px 16px var(--neu-shadow-light);
+  }
+
+  .neu-btn:active {
+    box-shadow: 
+      inset 4px 4px 8px var(--neu-shadow-dark),
+      inset -4px -4px 8px var(--neu-shadow-light);
+  }
+
+  /* Accent button */
+  .neu-btn-accent {
+    background: linear-gradient(145deg, #7477ff, #5558d9);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+  }
+
+  .neu-btn-accent:hover {
+    background: linear-gradient(145deg, #8588ff, #6669e5);
+    box-shadow: 
+      8px 8px 16px var(--neu-shadow-dark),
+      -8px -8px 16px var(--neu-shadow-light);
+  }
+
+  /* Small button */
+  .neu-btn-sm {
+    background: var(--neu-surface);
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    color: var(--neu-text-primary);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -4px -4px 8px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .neu-btn-sm:hover {
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+  }
+
+  .neu-btn-sm.active {
+    background: linear-gradient(145deg, #7477ff, #5558d9);
+    color: white;
+  }
+
+  /* Input */
+  .neu-input {
+    background: var(--neu-surface);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--neu-text-primary);
+    font-size: 14px;
+    box-shadow: 
+      inset 4px 4px 8px var(--neu-shadow-dark),
+      inset -4px -4px 8px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+  }
+
+  .neu-input:focus {
+    outline: none;
+    box-shadow: 
+      inset 6px 6px 12px var(--neu-shadow-dark),
+      inset -6px -6px 12px var(--neu-shadow-light);
+  }
+
+  /* Typography */
+  .neu-title {
+    color: var(--neu-text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .neu-subtitle {
+    color: var(--neu-text-secondary);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .neu-text {
+    color: var(--neu-text-primary);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .neu-text-muted {
+    color: var(--neu-text-secondary);
+    font-size: 13px;
+  }
+
+  /* Status badges */
+  .neu-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 
+      3px 3px 6px var(--neu-shadow-dark),
+      -3px -3px 6px var(--neu-shadow-light);
+  }
+
+  .neu-badge-success {
+    background: linear-gradient(145deg, #86efac, #6ee7b7);
+    color: #065f46;
+  }
+
+  .neu-badge-warning {
+    background: linear-gradient(145deg, #fde047, #fbbf24);
+    color: #78350f;
+  }
+
+  .neu-badge-danger {
+    background: linear-gradient(145deg, #fca5a5, #f87171);
+    color: #7f1d1d;
+  }
+
+  /* Progress bar */
+  .neu-progress {
+    height: 12px;
+    border-radius: 8px;
+    background: var(--neu-surface);
+    box-shadow: 
+      inset 3px 3px 6px var(--neu-shadow-dark),
+      inset -3px -3px 6px var(--neu-shadow-light);
+    overflow: hidden;
+  }
+
+  .neu-progress-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
+    transition: width 0.3s ease;
+  }
+
+  /* Table */
+  .neu-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .neu-table thead th {
+    background: var(--neu-surface);
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--neu-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 2px solid rgba(190, 195, 201, 0.3);
+  }
+
+  .neu-table tbody tr {
+    background: var(--neu-surface);
+    transition: all 0.2s ease;
+  }
+
+  .neu-table tbody tr:hover {
+    box-shadow: 
+      inset 0 2px 4px rgba(190, 195, 201, 0.15),
+      inset 0 -2px 4px rgba(255, 255, 255, 0.15);
+  }
+
+  .neu-table tbody td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--neu-text-primary);
+    border-bottom: 1px solid rgba(190, 195, 201, 0.2);
+  }
+
+  .neu-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Divider */
+  .neu-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--neu-shadow-dark) 20%,
+      var(--neu-shadow-dark) 80%,
+      transparent
+    );
+    margin: 24px 0;
+  }
+
+  /* ============================
+    WORKEYE LAYOUT (sidebar fix)
+    ============================ */
+
+  .we-app {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--neu-bg);
+  }
+
+  .we-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .we-content {
+    flex: 1;
+    overflow: auto;
+    min-width: 0;
+    background: var(--neu-bg);
+  }
+
+  .we-sidebar {
+    width: 240px;
+    background: var(--neu-surface);
+    border-right: 1px solid rgba(190, 195, 201, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 4px 0 8px rgba(190, 195, 201, 0.2);
+  }
+
+  .we-sidebar-header {
+    height: 56px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(190, 195, 201, 0.2);
+  }
+
+  .we-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .we-logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #7477ff, #5558d9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -2px -2px 6px var(--neu-shadow-light);
+  }
+
+  .we-logo-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--neu-text-primary);
+  }
+
+  .we-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .we-logo-icon .we-icon,
+  .we-mobile-brand-icon .we-icon {
+    color: #ffffff;
+  }
+
+  .we-sidebar-section {
+    padding: 12px;
+  }
+
+  .we-admin-card {
+    width: 100%;
+    text-align: left;
+    background: var(--neu-surface);
+    border: none;
+    border-radius: 14px;
+    padding: 10px 12px;
+    cursor: pointer;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -4px -4px 8px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+  }
+
+  .we-admin-card:hover {
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+  }
+
+  .we-admin-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--neu-text-primary);
+    margin-bottom: 2px;
+  }
+
+  .we-admin-sub {
+    font-size: 12px;
+    color: var(--neu-text-secondary);
+  }
+
+  .we-nav {
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: auto;
+  }
+
+  .we-nav-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    background: transparent;
+    color: var(--neu-text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .we-nav-btn:hover {
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--neu-accent);
+  }
+
+  .we-nav-btn.active {
+    background: linear-gradient(145deg, #7477ff, #5558d9);
+    color: #ffffff;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -2px -2px 6px var(--neu-shadow-light);
+  }
+
+  .we-spacer {
+    flex: 1;
+  }
+
+  .we-logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    background: var(--neu-surface);
+    color: var(--neu-text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -4px -4px 8px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+  }
+
+  .we-logout:hover {
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+  }
+
+  .we-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: var(--neu-surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 
+      4px 4px 8px var(--neu-shadow-dark),
+      -4px -4px 8px var(--neu-shadow-light);
+    transition: all 0.2s ease;
+  }
+
+  .we-icon-btn:hover {
+    box-shadow: 
+      6px 6px 12px var(--neu-shadow-dark),
+      -6px -6px 12px var(--neu-shadow-light);
+  }
+
+  .we-mobile-header {
+    height: 56px;
+    background: var(--neu-surface);
+    border-bottom: 1px solid rgba(190, 195, 201, 0.3);
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .we-mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .we-mobile-brand-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #7477ff, #5558d9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .we-mobile-brand-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--neu-text-primary);
+  }
+
+  .we-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+  }
+
+  .we-sidebar-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    z-index: 50;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+  }
+
+  .we-desktop-only {
+    display: none;
+  }
+
+  .we-mobile-only {
+    display: flex;
+  }
+
+  @media (min-width: 1024px) {
+    .we-desktop-only {
+      display: flex;
+    }
+    .we-mobile-only {
+      display: none;
+    }
+  }
