@@ -12,6 +12,8 @@ import { ProfilePage } from './components/ProfilePage';
 import { MembersPage } from './components/MembersPage';
 import { AttendancePage } from './components/AttendancePage';
 import AnalyticsPage from './components/AnalyticsPage';
+import { BillingPage } from './components/BillingPage';
+import { InvoicesPage } from './components/Invoice';
 
 const App = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -161,6 +163,32 @@ const App = () => {
         }
       />
       
+      <Route
+        path="/billing"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <BillingPage />
+            </Layout>
+          ) : (
+            <Navigate to="/dashboard" replace />
+          )
+        }
+      />
+
+      <Route
+        path="/billing/invoices"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <InvoicesPage />
+            </Layout>
+          ) : (
+            <Navigate to="/dashboard" replace />
+          )
+        }
+      />
+
       {/* Catch all */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

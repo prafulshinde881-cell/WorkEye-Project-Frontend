@@ -1,4 +1,5 @@
 // UPDATED: 2026-01-22 11:57 IST - Neumorphic design system
+// ADDED: LMS password sync integration
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Edit, Save, X, Building2, Mail, User, Shield, Briefcase, Trash2, AlertTriangle } from 'lucide-react';
@@ -46,11 +47,44 @@ export function ProfilePage() {
     }
   }, [user]);
 
+  // LMS Password Sync Function
+  const syncPasswordToLMS = async (email: string, passwordHash: string) => {
+    try {
+      const response = await fetch('https://lisence-system.onrender.com/api/external/customer-password-sync', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'my-secret-key-123'
+        },
+        body: JSON.stringify({
+          email: email,
+          password_hash: passwordHash,
+          company_username: company?.company_username || user?.company_username
+        })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('LMS password sync failed:', errorText);
+        throw new Error('LMS sync failed');
+      }
+
+      const result = await response.json();
+      console.log('LMS password sync successful:', result);
+      return result;
+    } catch (error) {
+      console.error('Error syncing password to LMS:', error);
+      throw error;
+    }
+  };
+
   const handleSave = async () => {
     setLoading(true);
     setMessage(null);
 
-    if (formData.new_password || formData.confirm_password || formData.current_password) {
+    const isPasswordChange = formData.new_password || formData.confirm_password || formData.current_password;
+
+    if (isPasswordChange) {
       if (!formData.current_password) {
         setMessage({ type: 'error', text: 'Current password is required to change password' });
         setLoading(false);
@@ -69,9 +103,38 @@ export function ProfilePage() {
     }
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // TODO: Replace this with your actual backend API call to update profile
+      // This should return the hashed password from your backend
+      const updateResponse = await authAPI.updateProfile({
+        full_name: formData.full_name,
+        email: formData.email,
+        role: formData.role,
+        current_password: formData.current_password || undefined,
+        new_password: formData.new_password || undefined
+      });
+
+      // If password was changed, sync with LMS
+      if (isPasswordChange && formData.new_password) {
+        try {
+          // IMPORTANT: Use the password_hash returned from your backend, not the plain password
+          // The backend should hash the password and return the hash
+          const passwordHash = updateResponse?.data?.password_hash || formData.new_password;
+          
+          await syncPasswordToLMS(formData.email, passwordHash);
+          
+          setMessage({ type: 'success', text: 'Profile and password updated successfully! Synced with LMS.' });
+        } catch (lmsError) {
+          console.error('LMS sync error:', lmsError);
+          // Profile update succeeded but LMS sync failed
+          setMessage({ 
+            type: 'success', 
+            text: 'Profile updated successfully! LMS sync failed - please contact support.' 
+          });
+        }
+      } else {
+        setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      }
       
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
       setIsEditing(false);
       
       setFormData(prev => ({

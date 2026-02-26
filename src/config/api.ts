@@ -161,6 +161,22 @@ function setRefreshToken(token: string) {
   localStorage.setItem('refreshToken', token);
 }
 
+/** Read admin email from adminData saved on login */
+export function getAdminEmail(): string {
+  try {
+    const raw = localStorage.getItem('adminData');
+    if (!raw) return '';
+    return JSON.parse(raw)?.email || '';
+  } catch {
+    return '';
+  }
+}
+
+/** Read LMS customer ID saved by Login.tsx on LMS auth */
+export function getLmsCustomerId(): string {
+  return localStorage.getItem('lmsCustomerId') || '';
+}
+
 function createHeaders(): HeadersInit {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
@@ -612,10 +628,13 @@ export const auth = {
     if (response.token) {
       setAuthToken(response.token);
     }
-    if (response.refresh_token) {
+      if (response.refresh_token) {
       setRefreshToken(response.refresh_token);
     }
-    
+    if (response.admin) {  // ← correct indent
+      localStorage.setItem('adminData', JSON.stringify(response.admin));
+    }
+
     return response;
   },
 
@@ -660,10 +679,34 @@ export const auth = {
     );
   },
 
+  updateProfile: async (data: {
+    full_name?: string;
+    email?: string;
+    role?: string;
+    current_password?: string;
+    new_password?: string;
+  }): Promise<{
+    success: boolean;
+    message?: string;
+    data?: {
+      full_name?: string;
+      email?: string;
+      role?: string;
+      password_hash?: string; // Only present if password was changed
+    };
+  }> => {
+    return fetchAPI('/auth/admin/update-profile', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
   logout: () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('adminData');
+    localStorage.removeItem('lmsCustomerId');
+    localStorage.removeItem('lmsLicenseId'); 
     wsClient.disconnect();
   },
 };

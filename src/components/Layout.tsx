@@ -9,6 +9,7 @@ import {
   LogOut,
   Eye,
   Menu,
+  CreditCard,
   X
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -30,6 +31,7 @@ export function Layout({ children }: LayoutProps) {
     { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { path: '/members', icon: UsersIcon, label: 'Team' },
     { path: '/attendance', icon: ClipboardList, label: 'Attendance' },
+    { path: '/billing', icon: CreditCard, label: 'Billing' },
     { path: '/configuration', icon: Settings, label: 'Settings' }
   ];
 
