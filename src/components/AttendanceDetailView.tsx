@@ -91,7 +91,6 @@
 //       setError(null);
       
 //       const response = await fetch(
-//         `${import.meta.env.VITE_API_URL || 'https://backend-35m2.onrender.com'}/api/attendance/member/${member.id}?start_date=${dateRange.start}&end_date=${dateRange.end}`,
 //         {
 //           headers: {
 //             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
@@ -132,7 +131,6 @@
 //   const fetchAnalyticsData = async () => {
 //     try {
 //       const response = await fetch(
-//         `${import.meta.env.VITE_API_URL || 'https://backend-35m2.onrender.com'}/api/attendance/analytics/${member.id}?view=${view}&start_date=${dateRange.start}&end_date=${dateRange.end}`,
 //         {
 //           headers: {
 //             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
@@ -622,6 +620,9 @@ export function AttendanceDetailView({ member, onBack }: AttendanceDetailViewPro
     department: ''
   });
 
+  // determine base URL once to avoid mismatched defaults
+  const apiBase = import.meta.env.VITE_API_URL || 'http://127.0.0.1:10000';
+
   // Fetch attendance data with daily breakdown
   const fetchAttendanceData = async () => {
     try {
@@ -629,7 +630,7 @@ export function AttendanceDetailView({ member, onBack }: AttendanceDetailViewPro
       setError(null);
       
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'https://backend-35m2.onrender.com'}/api/attendance/member/${member.id}?start_date=${dateRange.start}&end_date=${dateRange.end}`,
+        `${apiBase}/api/attendance/member/${member.id}?start_date=${dateRange.start}&end_date=${dateRange.end}`,
         {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
@@ -670,7 +671,7 @@ export function AttendanceDetailView({ member, onBack }: AttendanceDetailViewPro
   const fetchAnalyticsData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL || 'https://backend-35m2.onrender.com'}/api/attendance/analytics/${member.id}?view=${view}&start_date=${dateRange.start}&end_date=${dateRange.end}`,
+        `${apiBase}/api/attendance/analytics/${member.id}?view=${view}&start_date=${dateRange.start}&end_date=${dateRange.end}`,
         {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
@@ -680,16 +681,23 @@ export function AttendanceDetailView({ member, onBack }: AttendanceDetailViewPro
       );
 
       if (!response.ok) {
+        console.error('Analytics fetch status:', response.status, response.statusText);
         throw new Error('Failed to fetch analytics');
       }
 
       const data = await response.json();
+      console.debug('Analytics response', data);
       
       if (data.success) {
         setAnalyticsData(data.data || []);
+      } else {
+        // clear old data when server indicates failure
+        setAnalyticsData([]);
+        console.warn('Analytics endpoint returned error:', data.error);
       }
     } catch (err: any) {
       console.error('Error fetching analytics:', err);
+      setAnalyticsData([]);
     }
   };
 

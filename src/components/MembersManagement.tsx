@@ -400,7 +400,9 @@ export function MembersManagement({
   useEffect(() => {
     loadMembers().then((count) => initLicense(count));
 
-    const pollId = setInterval(() => loadMembers(), 5_000);
+    // Reduced polling: refresh members list every 60 seconds instead of 5s
+    // WebSocket events handle real-time status updates, so aggressive polling not needed
+    const pollId = setInterval(() => loadMembers(), 60_000);
 
     const handleStatusUpdate = (data: any) => {
       if (data.member_id && data.status)
