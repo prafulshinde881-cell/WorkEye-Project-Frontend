@@ -489,9 +489,12 @@ export function BillingPage() {
 
   async function fetchPlans(): Promise<LmsPlan[]> {
     const res = await fetch(
-      `${LMS_BASE}/api/license/public/licenses-by-product/${PRODUCT_ID}`,
-      { headers: { 'x-api-key': 'my-secret-key-123' } }
-    );
+  `${LMS_BASE}/api/license/public/licenses-by-product/${PRODUCT_ID}`
+);
+
+if (!res.ok) {
+  throw new Error("Failed to fetch plans");
+}
     const data = await res.json();
     const raw: any[] =
       data.licenses ?? data.data?.licenses ?? data.data ?? (Array.isArray(data) ? data : []);
@@ -567,9 +570,9 @@ export function BillingPage() {
         status: lic.status ?? 'active',
         pricePerMonth: lic.priceSnapshot?.subtotal ?? matched?.price ?? 0,
       });
-    } catch {
-      // No active license — lmsUserId will be resolved from purchaseLicense response
-    }
+    } catch (error) {
+  console.error("Active license fetch error:", error);
+}
   }
 
   // ── Fetch upgrade quote ───────────────────────────────────────────────────
@@ -718,13 +721,22 @@ export function BillingPage() {
   // ── Initial load ──────────────────────────────────────────────────────────
 
   useEffect(() => {
-    (async () => {
+  (async () => {
+    try {
       setLoading(true);
+
       const loaded = await fetchPlans();
+
       await fetchActiveLicense(loaded);
+
+    } catch (error) {
+      console.error("Billing page load error:", error);
+      toast.error("Failed to load billing data");
+    } finally {
       setLoading(false);
-    })();
-  }, []);
+    }
+  })();
+}, []);
 
   // ── Plan selection ────────────────────────────────────────────────────────
 
