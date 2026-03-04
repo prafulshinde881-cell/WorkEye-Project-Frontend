@@ -82,7 +82,7 @@ interface UpgradeQuote {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const PRODUCT_ID = '69589e3fe70228ef3c25f26c';
-const LMS_BASE = 'https://license-system.onrender.com';
+const LMS_BASE = 'https://lisence-system.onrender.com';
 
 const PLAN_ORDER: Record<string, number> = {
   starter: 0,
